@@ -10,8 +10,6 @@ with open(argv[1]) as infile:
     for line in infile.readlines():
         input.append((line[0], int(line[1:])))
 
-print(input, "\n")
-
 
 def sign(n: int) -> int:
     if n == 0:
