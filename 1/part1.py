@@ -1,3 +1,6 @@
+#!/usr/bin/env -S uv run --script
+#
+
 from sys import argv
 from typing import List, Tuple
 
@@ -11,6 +14,7 @@ print(input, "\n")
 
 pos = 50
 pw = 0
+
 for d, v in input:
     if d == "L":
         v = -v
