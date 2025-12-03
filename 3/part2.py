@@ -22,16 +22,14 @@ pass
 # Define functions that operate on the data to create answers
 
 
-def best(number_str: str, maxdigits: int) -> str:
+def bestdigit(number_str: str, maxplace: int) -> str:
     bestvalue = 0
     bestdigit = ""
-    digits = [
-        int(char) for char in reversed(number_str)
-    ]  # reversed so the index is also the decimal place, starting at zero
-    for place, digit in enumerate(digits):
-        value = digit * 10 ** min(place, maxdigits - 1)
+    for i, digit in enumerate(number_str):
+        place = len(number_str) - i - 1
+        value = int(digit) * 10 ** min(place, maxplace)
         if value >= bestvalue:
-            bestdigit = str(digit)
+            bestdigit = digit
             bestvalue = value
     print(f"{number_str}: digit={bestdigit}")
     return bestdigit
@@ -39,9 +37,9 @@ def best(number_str: str, maxdigits: int) -> str:
 
 def maxtwelve(cells: str) -> int:
     answer = ""
-    for maxdigits in range(12, 0, -1):
-        # find the highest valued available digit position
-        bd = best(cells, maxdigits)
+    for maxplace in range(11, -1, -1):  # noninclusive range causes the "-1" stop
+        # find the highest valued available digit
+        bd = bestdigit(cells, maxplace)
         answer += bd
         # eliminate all candidates "to the left of" the best we just found
         cells = cells[cells.find(bd) + 1 :]
@@ -50,8 +48,8 @@ def maxtwelve(cells: str) -> int:
 
 # Execute primitive unit tests - essential for even the simpler problems
 #
-assert best("81171192", 4) == "8"
-assert best("81171191", 1) == "9"
+assert bestdigit("81171192", 4) == "8"
+assert bestdigit("81171191", 1) == "9"
 
 allpassed = True
 for case, result in (
