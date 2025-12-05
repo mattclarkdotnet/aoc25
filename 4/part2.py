@@ -65,12 +65,11 @@ def neighbour_vals(input: InputMap, position: Position) -> Iterable[bool]:
 
 def accessible(input: InputMap) -> Iterable[Position]:
     w, h = dim(input)
-    for x in range(w):
-        for y in range(h):
-            if input[(x, y)] is True:
-                rolls = sum(1 for i in neighbour_vals(input, (x, y)) if i is True)
-                if rolls < 4:
-                    yield (x, y)
+    for x, y in itertools.product(range(w), range(h)):
+        if input[(x, y)] is True:
+            rolls = sum(1 for i in neighbour_vals(input, (x, y)) if i is True)
+            if rolls < 4:
+                yield (x, y)
 
 
 # Basic testing
