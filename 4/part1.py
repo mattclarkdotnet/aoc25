@@ -1,6 +1,7 @@
 #!/usr/bin/env -S uv run --script
 #
 
+import functools
 import itertools
 from sys import argv
 from typing import Dict, Iterable
